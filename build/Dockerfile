@@ -15,7 +15,6 @@ RUN go build -o app ./cmd/main.go
 FROM alpine as main
 
 COPY --from=builder /app/app /bin/app
-COPY ./db/migrations ./db/migrations
 COPY ./config ./config
 
 ENV CONFIG_PATH=/config/application-config.yaml

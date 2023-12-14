@@ -8,4 +8,5 @@ application:
     idleTimeout: 120
     graceShutdownTimeout: 20
 database:
-  uri: "mongodb://localhost:27017"
+  uri: "mongodb://localhost:27017/dough-calculator"
+  connectionTimeout: 30s

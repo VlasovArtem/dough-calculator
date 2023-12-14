@@ -16,7 +16,7 @@ import (
 
 const (
 	FlourDatabase   = "dough-calculator"
-	FlourCollection = "sourdough-recipes"
+	FlourCollection = "flour"
 )
 
 type flourRepository struct {
@@ -143,7 +143,7 @@ func NewFlourRepository(mongoDBService domain.MongoDBService) (domain.FlourRepos
 		return nil, errors.New("service cannot be nil")
 	}
 
-	collection, err := mongoDBService.GetCollection(SourdoughRecipeDatabase, SourdoughRecipeCollection)
+	collection, err := mongoDBService.GetCollection(FlourDatabase, FlourCollection)
 	if err != nil {
 		return nil, errors.Wrap(err, "failed to get collection")
 	}

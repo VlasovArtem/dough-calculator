@@ -1,6 +1,6 @@
 buildImage: ## Build docker image
 	@echo "Building docker image"
-	@docker build -t bitt/loan -f ./build/Dockerfile .
+	@docker build -t vlasovartem/dough-calculator -f ./build/Dockerfile .
 
 runTests: ## Run tests
 	@echo "Running tests"

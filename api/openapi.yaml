@@ -1,7 +1,7 @@
 openapi: 3.0.0
 
 info:
-  title: Recipe API
+  title: Dough Calculator API
   version: 1.0.0
 
 servers:
@@ -146,7 +146,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Flour'
+              $ref: '#/components/schemas/CreateFlourRequest'
       responses:
         '201':
           description: Successfully created flour
@@ -332,8 +332,17 @@ components:
     FlourAmount:
       type: object
       properties:
-        flour:
-          type: object
+        id:
+          type: string
+          format: uuid
+        flour_type:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+        nutrition_facts:
+          $ref: '#/components/schemas/NutritionFacts'
         amount:
           type: number
       required:
@@ -402,19 +411,30 @@ components:
         - additional_ingredients
         - total_weight
 
+    CreateFlourRequest:
+      type: object
+      properties:
+        flour_type:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+        nutrition_facts:
+          $ref: '#/components/schemas/NutritionFacts'
     Flour:
       type: object
       properties:
         id:
           type: string
           format: uuid
-        flourType:
+        flour_type:
           type: string
         name:
           type: string
         description:
           type: string
-        nutritionFacts:
+        nutrition_facts:
           $ref: '#/components/schemas/NutritionFacts'
     NutritionFacts:
       type: object

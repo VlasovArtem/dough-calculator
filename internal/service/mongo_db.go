@@ -75,7 +75,7 @@ func NewMongoDBService(config config.Database) (domain.MongoDBService, error) {
 	}
 	err = client.Ping(ctx, nil)
 	if err != nil {
-		return nil, errors.Wrap(err, "failed to create database")
+		return nil, errors.Wrap(err, "failed to ping database")
 	}
 
 	return newMongoDBService(config, client)
