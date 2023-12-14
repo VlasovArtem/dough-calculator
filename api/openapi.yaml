@@ -1,0 +1,442 @@
+openapi: 3.0.0
+
+info:
+  title: Recipe API
+  version: 1.0.0
+
+servers:
+  - url: http://localhost:8080
+
+tags:
+  - name: Actuator
+    description: Actuator
+  - name: Sourdough
+    description: Sourdough
+  - name: Flour
+    description: Flour
+
+paths:
+  /actuator/health:
+    get:
+      tags:
+        - Actuator
+      summary: Health
+      description: Health
+      operationId: health
+      responses:
+        '200':
+          description: OK
+  /v1/recipe/sourdough:
+    post:
+      tags:
+        - Sourdough
+      summary: Create a new sourdough recipe
+      operationId: createSourdoughRecipe
+      requestBody:
+        description: Sourdough recipe content
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateSourdoughRecipeRequestDto'
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SourdoughRecipeResponseDto'
+    get:
+      tags:
+        - Sourdough
+      summary: Find sourdough recipe by pagination
+      operationId: findSourdoughRecipe
+      parameters:
+        - name: offset
+          in: query
+          required: false
+          schema:
+            type: integer
+        - name: limit
+          in: query
+          required: false
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: List of recipes
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/SourdoughRecipeResponseDto'
+  /v1/recipe/sourdough/search:
+    get:
+      tags:
+        - Sourdough
+      summary: Search sourdough recipe
+      operationId: searchSourdoughRecipe
+      parameters:
+        - name: name
+          in: query
+          required: false
+          schema:
+            type: string
+      responses:
+        '200':
+          description: List of recipes
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/SourdoughRecipeResponseDto'
+  /v1/recipe/sourdough/{id}:
+    get:
+      tags:
+        - Sourdough
+      summary: Fetch a sourdough recipe by its uuid
+      operationId: findSourdoughRecipeById
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: A single sourdough recipe
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SourdoughRecipeResponseDto'
+  /v1/recipe/sourdough/{id}/scale:
+    post:
+      tags:
+        - Sourdough
+      summary: Scale a sourdough recipe
+      operationId: scaleSourdoughRecipe
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        description: Final dough weight to scale recipe by
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SourdoughRecipeScaleRequestDto'
+      responses:
+        '201':
+          description: Scaled
+  /v1/flour:
+    post:
+      summary: Creates a new flour
+      operationId: createFlour
+      tags:
+        - Flour
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Flour'
+      responses:
+        '201':
+          description: Successfully created flour
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FlourResponse'
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    get:
+      summary: Retrieve a list of flours
+      operationId: findFlours
+      tags:
+        - Flour
+      parameters:
+        - name: offset
+          in: query
+          required: false
+          schema:
+            type: integer
+        - name: limit
+          in: query
+          required: false
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Successfully retrieved flours
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/FlourResponse'
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /v1/flour/{id}:
+    get:
+      summary: Retrieve a flour by ID
+      operationId: findFlourById
+      tags:
+        - Flour
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Successfully retrieved flour
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FlourResponse'
+        '404':
+          description: Flour not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /v1/flour/search:
+    get:
+      summary: Search flour
+      operationId: searchFlour
+      tags:
+        - Flour
+      parameters:
+        - name: name
+          in: query
+          required: false
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successfully retrieved flours
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/FlourResponse'
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+components:
+  schemas:
+    CreateSourdoughRecipeRequestDto:
+      type: object
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+        flour:
+          type: array
+          items:
+            $ref: '#/components/schemas/FlourAmount'
+        water:
+          type: array
+          items:
+            $ref: '#/components/schemas/BakerAmount'
+        levain:
+          $ref: '#/components/schemas/SourdoughLevainAgent'
+        additional_ingredients:
+          type: array
+          items:
+            $ref: '#/components/schemas/BakerAmount'
+        nutrition_facts:
+          type: object
+        yield:
+          $ref: '#/components/schemas/RecipeYield'
+      required:
+        - name
+        - description
+        - flour
+        - water
+        - levain
+        - additional_ingredients
+        - nutrition_facts
+        - yield
+
+    SourdoughRecipeResponseDto:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        name:
+          type: string
+        description:
+          type: string
+        flour:
+          type: array
+          items:
+            $ref: '#/components/schemas/FlourAmount'
+        water:
+          type: array
+          items:
+            $ref: '#/components/schemas/BakerAmount'
+        levain:
+          $ref: '#/components/schemas/SourdoughLevainAgent'
+        additional_ingredients:
+          type: array
+          items:
+            $ref: '#/components/schemas/BakerAmount'
+        details:
+          type: object
+        nutrition_facts:
+          type: object
+        yield:
+          type: object
+
+    SourdoughRecipeScaleRequestDto:
+      type: object
+      properties:
+        final_dough_weight:
+          type: integer
+      required:
+        - final_dough_weight
+
+    FlourAmount:
+      type: object
+      properties:
+        flour:
+          type: object
+        amount:
+          type: number
+      required:
+        - flour
+        - amount
+
+    BakerAmount:
+      type: object
+      properties:
+        amount:
+          type: number
+        baker_percentage:
+          type: number
+        name:
+          type: string
+      required:
+        - amount
+
+    SourdoughLevainAgent:
+      type: object
+      properties:
+        amount:
+          $ref: '#/components/schemas/BakerAmount'
+        starter:
+          $ref: '#/components/schemas/BakerAmount'
+        flour:
+          type: array
+          items:
+            $ref: '#/components/schemas/FlourAmount'
+        water:
+          $ref: '#/components/schemas/BakerAmount'
+      required:
+        - amount
+        - starter
+        - flour
+        - water
+
+    RecipeYield:
+      type: object
+      properties:
+        unit:
+          type: string
+        amount:
+          type: integer
+      required:
+        - unit
+        - amount
+
+    RecipeDetails:
+      type: object
+      properties:
+        flour:
+          $ref: '#/components/schemas/BakerAmount'
+        water:
+          $ref: '#/components/schemas/BakerAmount'
+        levain:
+          $ref: '#/components/schemas/BakerAmount'
+        additional_ingredients:
+          $ref: '#/components/schemas/BakerAmount'
+        total_weight:
+          type: integer
+      required:
+        - flour
+        - water
+        - levain
+        - additional_ingredients
+        - total_weight
+
+    Flour:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        flourType:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+        nutritionFacts:
+          $ref: '#/components/schemas/NutritionFacts'
+    NutritionFacts:
+      type: object
+      properties:
+        calories:
+          type: integer
+        fat:
+          type: number
+          format: float
+        carbs:
+          type: number
+          format: float
+        protein:
+          type: number
+          format: float
+        fiber:
+          type: number
+          format: float
+    Error:
+      type: object
+      properties:
+        message:
+          type: string
+    FlourResponse:
+      $ref: '#/components/schemas/Flour'

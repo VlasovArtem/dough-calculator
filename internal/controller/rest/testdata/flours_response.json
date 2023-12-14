@@ -1,0 +1,15 @@
+[
+  {
+    "id": "74c65c5a-44e7-44a2-8cdd-cd7c49cfcb42",
+    "flour_type": "Whole Wheat",
+    "name": "Whole Wheat Flour",
+    "description": "Whole grain flour milled from red wheat berries",
+    "nutrition_facts": {
+      "calories": 100,
+      "fat": 1,
+      "carbs": 21,
+      "protein": 4,
+      "fiber": 3
+    }
+  }
+]

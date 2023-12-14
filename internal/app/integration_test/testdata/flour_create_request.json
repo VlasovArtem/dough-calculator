@@ -1,0 +1,12 @@
+{
+  "flour_type": "Wheat",
+  "name": "Whole Wheat Flour",
+  "description": "Whole wheat flour made from 100% whole wheat grains.",
+  "nutrition_facts": {
+    "calories": 407,
+    "fat": 2.2,
+    "carbs": 86.4,
+    "protein": 16.4,
+    "fiber": 12.2
+  }
+}

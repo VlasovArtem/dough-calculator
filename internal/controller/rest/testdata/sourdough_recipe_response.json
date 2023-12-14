@@ -1,0 +1,129 @@
+{
+  "id": "45bdca7a-f8d8-42e5-9ad8-706a216647ab",
+  "name": "test recipe",
+  "description": "test recipe description",
+  "flour": [
+    {
+      "id": "74c65c5a-44e7-44a2-8cdd-cd7c49cfcb42",
+      "flour_type": "test first flour type",
+      "name": "test first flour name",
+      "description": "test first flour description",
+      "nutrition_facts": {
+        "calories": 1,
+        "fat": 1,
+        "carbs": 1,
+        "protein": 1,
+        "fiber": 1
+      },
+      "amount": 900
+    },
+    {
+      "id": "a7670bf9-f4b0-4e5c-8edc-140812dbf719",
+      "flour_type": "test second flour type",
+      "name": "test second flour name",
+      "description": "test second flour description",
+      "nutrition_facts": {
+        "calories": 2,
+        "fat": 2,
+        "carbs": 2,
+        "protein": 2,
+        "fiber": 2
+      },
+      "amount": 100
+    }
+  ],
+  "water": [
+    {
+      "amount": 700,
+      "baker_percentage": 70,
+      "name": "Water 1"
+    },
+    {
+      "amount": 50,
+      "baker_percentage": 5,
+      "name": "Water 2"
+    }
+  ],
+  "levain": {
+    "amount": {
+      "amount": 200,
+      "baker_percentage": 20
+    },
+    "flour": [
+      {
+        "id": "74c65c5a-44e7-44a2-8cdd-cd7c49cfcb42",
+        "flour_type": "test first flour type",
+        "name": "test first flour name",
+        "description": "test first flour description",
+        "nutrition_facts": {
+          "calories": 1,
+          "fat": 1,
+          "carbs": 1,
+          "protein": 1,
+          "fiber": 1
+        },
+        "amount": 45
+      },
+      {
+        "id": "a7670bf9-f4b0-4e5c-8edc-140812dbf719",
+        "flour_type": "test second flour type",
+        "name": "test second flour name",
+        "description": "test second flour description",
+        "nutrition_facts": {
+          "calories": 2,
+          "fat": 2,
+          "carbs": 2,
+          "protein": 2,
+          "fiber": 2
+        },
+        "amount": 45
+      }
+    ],
+    "starter": {
+      "amount": 20
+    },
+    "water": {
+      "amount": 90
+    }
+  },
+  "additional_ingredients": [
+    {
+      "amount": 20,
+      "baker_percentage": 2,
+      "name": "Salt"
+    }
+  ],
+  "recipe_details": {
+    "flour": {
+      "amount": 1000,
+      "baker_percentage": 100
+    },
+    "water": {
+      "amount": 750,
+      "baker_percentage": 75
+    },
+    "levain": {
+      "amount": 200,
+      "baker_percentage": 20
+    },
+    "additional_ingredients": {
+      "amount": 20,
+      "baker_percentage": 2
+    },
+    "total_weight": 1970
+  },
+  "yield": {
+    "unit": "loaf",
+    "amount": 2
+  },
+  "nutrition_facts": {
+    "100g": {
+      "calories": 1,
+      "fat": 1,
+      "carbs": 1,
+      "protein": 1,
+      "fiber": 1
+    }
+  },
+  "created_at": "2020-01-25T01:01:01.000000001Z"
+}

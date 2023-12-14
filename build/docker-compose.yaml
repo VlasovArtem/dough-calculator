@@ -1,0 +1,20 @@
+version: '3.8'
+services:
+  dough-calculator:
+    image: dough-calculator:latest
+    ports:
+      - "8080:8080"
+    depends_on:
+      - mongodb
+    environment:
+      - DATABASE_URI=mongodb://mongodb:27017/dough_calculator
+
+  mongodb:
+    image: mongo:latest
+    volumes:
+      - mongodb_data:/data/db
+    ports:
+      - "27017:27017"
+
+volumes:
+  mongodb_data:

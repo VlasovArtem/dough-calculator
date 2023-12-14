@@ -1,0 +1,12 @@
+application:
+  name: "dough-calculator"
+  rest:
+    server: ":8080"
+    contextPath: "/v1"
+    readTimeout: 5
+    writeTimeout: 5
+    idleTimeout: 120
+    graceShutdownTimeout: 20
+database:
+  uri: "mongodb://localhost:27017"
+  connectionTimeout: 10000
